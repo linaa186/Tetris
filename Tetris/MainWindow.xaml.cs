@@ -47,5 +47,10 @@ namespace Tetris
         {
             Game.Start();
         }
+
+        private void exit_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
     }
 }

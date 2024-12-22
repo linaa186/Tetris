@@ -18,21 +18,29 @@ namespace Tetris;
 public class TetrisGame
 {
     MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-    Spielfeld spielfeld = new Spielfeld();
+    Spielfeld spielfeld;
     SpawnManager spawnManager = new SpawnManager();
-    DispatcherTimer dp = new DispatcherTimer();
+    public DispatcherTimer dp = new DispatcherTimer();
     Block aktBlock;
     bool gameActive = false;
     public Sound Sound { get; private set; } = new Sound();
 
+    public TetrisGame()
+    {
+        dp.Interval = new TimeSpan(0, 0, 0, 0, 500);
+        dp.Tick += Dp_Tick;
+    }
+    
     public void Start()
     {
         mainWindow.start.Visibility = Visibility.Hidden;
+        mainWindow.gameOverText.Visibility = Visibility.Hidden;
+        spielfeld = new Spielfeld();
+        mainWindow.placedBlocks.Children.Clear();
         gameActive = true;
-        dp.Interval = new TimeSpan(0, 0, 0, 0, 500);
-        dp.Tick += Dp_Tick;
-        dp.Start();
+        spawnManager.NextBlock();
         aktBlock = spawnManager.SpawnNewBlock();
+        dp.Start();
     }
 
     private void Dp_Tick(object? sender, EventArgs e)
@@ -45,28 +53,17 @@ public class TetrisGame
         else
         {
             spielfeld.PlaceBlock(aktBlock);
-            mainWindow.falling.Children.RemoveAt(0);
+            mainWindow.falling.Children.Clear();
             if (!spielfeld.IsGameOver)
             {
                 aktBlock = spawnManager.SpawnNewBlock();
             } else
             {
                 gameActive = false;
-                dp.Stop();
-                var text = new TextBlock
-                {
-                    Foreground = Brushes.Red,
-                    Background = Brushes.Black,
-                    FontWeight = FontWeights.Black,
-                    FontSize = 35,
-                    Width = 200,
-                    TextAlignment = TextAlignment.Center,
-                    Text = "Game Over"
-                };
-                Canvas.SetTop(text, 160);
-                mainWindow.feld.Children.Add(text);
+                mainWindow.gameOverText.Visibility = Visibility.Visible;
                 Canvas.SetTop(mainWindow.start, 220);
                 mainWindow.start.Visibility = Visibility.Visible;
+                dp.Stop();
             }
         }
     }

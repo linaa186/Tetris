@@ -113,20 +113,20 @@ public class Spielfeld
 
     private void DeleteRow(int index)
     {
-        for(int i = 0; i < mainWindow.feld.Children.Count; i++)
+        for(int i = 0; i < mainWindow.placedBlocks.Children.Count; i++)
         {
-            if (Canvas.GetBottom(mainWindow.feld.Children[i]) < index * 20 + 1 && Canvas.GetBottom(mainWindow.feld.Children[i]) > index * 20 - 1)
+            if (Canvas.GetBottom(mainWindow.placedBlocks.Children[i]) < index * 20 + 1 && Canvas.GetBottom(mainWindow.placedBlocks.Children[i]) > index * 20 - 1)
             {
-                mainWindow.feld.Children.RemoveAt(i);
+                mainWindow.placedBlocks.Children.RemoveAt(i);
                 i--;
             }
         }
-        for (int i = 0; i < mainWindow.feld.Children.Count; i++)
+        for (int i = 0; i < mainWindow.placedBlocks.Children.Count; i++)
         {
-            if (Canvas.GetBottom(mainWindow.feld.Children[i]) > index * 20)
+            if (Canvas.GetBottom(mainWindow.placedBlocks.Children[i]) > index * 20)
             {
-                var yPos = Canvas.GetBottom(mainWindow.feld.Children[i]);
-                Canvas.SetBottom(mainWindow.feld.Children[i], yPos - 20);
+                var yPos = Canvas.GetBottom(mainWindow.placedBlocks.Children[i]);
+                Canvas.SetBottom(mainWindow.placedBlocks.Children[i], yPos - 20);
             }
         }
         reihen.RemoveAt(index);

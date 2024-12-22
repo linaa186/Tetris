@@ -17,7 +17,6 @@ public class SpawnManager
     public SpawnManager()
     {
         BuildBlocks();
-        nextBlock = NextBlock();
     }
 
     private void BuildBlocks()
@@ -45,12 +44,13 @@ public class SpawnManager
         var child = mainWindow.nextBlock.Children[0];
         mainWindow.nextBlock.Children.Clear();
         mainWindow.falling.Children.Add(child);
-        nextBlock = NextBlock();
+        NextBlock();
         return aktBlock;
     }
 
-    private Block NextBlock()
+    public void NextBlock()
     {
+        mainWindow.nextBlock.Children.Clear();
         Random rnd = new Random();
         nextBlock = blocks[rnd.Next(0, 7)];
         //nextBlock = blocks[4];
@@ -78,6 +78,5 @@ public class SpawnManager
                 mainWindow.nextBlock.Children.Add(new BlockT());
                 break;
         }
-        return nextBlock;
     }
 }

@@ -74,6 +74,6 @@ public class Cube
         }
         Canvas.SetLeft(cube, XPos * 20);
         Canvas.SetBottom(cube, YPos * 20);
-        mainWindow.feld.Children.Add(cube);
+        mainWindow.placedBlocks.Children.Add(cube);
     }
 }
