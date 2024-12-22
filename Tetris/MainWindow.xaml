@@ -1,0 +1,30 @@
+﻿<Window x:Class="Tetris.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Tetris"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        KeyDown="Window_KeyDown">
+
+    <Canvas x:Name="feld" Width="200" Height="400" Background="Black">
+        
+        <!--<Rectangle Width="200" Height="400" Fill="Gray"/>-->
+        
+        <Canvas x:Name="falling" Height="60" Width="60" Canvas.Left="60" Canvas.Top="0">
+            <Canvas.LayoutTransform>
+                <RotateTransform x:Name="rotation" Angle="0"/>
+            </Canvas.LayoutTransform>
+            <!--<Rectangle Fill="Gray" Height="60" Width="60"/>-->
+            <!--<local:Block1x4 x:Name="block1x4" Canvas.Left="0" Canvas.Bottom="20"/>-->
+        </Canvas>
+        <!--<TextBox x:Name="gameOverText" Foreground="Red" Background="Transparent" BorderThickness="0" FontWeight="Black" FontSize="35" Width="200" Canvas.Top="160" TextAlignment="Center" Visibility="Hidden">GameOver</TextBox>-->
+        <TextBlock Width="60" Canvas.Left="250" Canvas.Top="20" TextAlignment="Center" FontWeight="Bold" FontSize="11">Next Block</TextBlock>
+        <Canvas x:Name="nextBlock" Width="60" Height="60" Canvas.Left="250" Canvas.Top="40">
+            
+        </Canvas>
+        <Button x:Name="start" Panel.ZIndex="1" Width="60" Height="20" FontWeight="Bold" Canvas.Left="70" Canvas.Top="190" Click="start_Click" Focusable="False">Start</Button>
+        <Button x:Name="mute" Canvas.Left="250" Canvas.Top="350" Width="40" Background="LightBlue" BorderThickness="0" Click="mute_Click" Focusable="False">Mute</Button>
+    </Canvas>
+</Window>
