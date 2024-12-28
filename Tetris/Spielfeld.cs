@@ -28,14 +28,13 @@ public class Spielfeld
     {
         foreach (Cube c in block.cubes)
         {
-            var temp = new Cube(block.Type);
+            Cube temp = c;
             reihen[c.CubePosY][c.CubePosX] = temp;
-            temp.CreateCube(c.CubePosX, c.CubePosY);
         }
         CompleteRow();
-        foreach(Cube c in block.cubes)
+        foreach (Cube c in block.cubes)
         {
-            if(c.CubePosY > 17)
+            if (c.CubePosY > 17)
             {
                 IsGameOver = true;
             }
@@ -50,28 +49,31 @@ public class Spielfeld
             switch (direction)
             {
                 case "down":
-                    if (cube.CubePosY > 0 && reihen[cube.CubePosY-1][cube.CubePosX] == null)
+                    if (cube.CubePosY > 0 && reihen[cube.CubePosY - 1][cube.CubePosX] == null)
                     {
                         free = true;
-                    } else
+                    }
+                    else
                     {
                         return false;
                     }
                     break;
                 case "left":
-                    if(cube.CubePosX > 0 && reihen[cube.CubePosY][cube.CubePosX-1] == null)
+                    if (cube.CubePosX > 0 && reihen[cube.CubePosY][cube.CubePosX - 1] == null)
                     {
                         free = true;
-                    } else
+                    }
+                    else
                     {
                         return false;
                     }
                     break;
                 case "right":
-                    if(cube.CubePosX < 9 && reihen[cube.CubePosY][cube.CubePosX + 1] == null)
+                    if (cube.CubePosX < 9 && reihen[cube.CubePosY][cube.CubePosX + 1] == null)
                     {
                         free = true;
-                    } else
+                    }
+                    else
                     {
                         return false;
                     }
@@ -80,7 +82,8 @@ public class Spielfeld
                     if (reihen[cube.CubePosY][cube.CubePosX] == null)
                     {
                         free = true;
-                    } else
+                    }
+                    else
                     {
                         return false;
                     }
@@ -92,7 +95,7 @@ public class Spielfeld
 
     private void CompleteRow()
     {
-        for(int i = 0; i < reihen.Count; i++)
+        for (int i = 0; i < reihen.Count; i++)
         {
             bool complete = true;
             for (int j = 0; j < reihen[i].Length; j++)
@@ -113,20 +116,17 @@ public class Spielfeld
 
     private void DeleteRow(int index)
     {
-        for(int i = 0; i < mainWindow.placedBlocks.Children.Count; i++)
+        for (int i = 0; i < mainWindow.blocks.Children.Count; i++)
         {
-            if (Canvas.GetBottom(mainWindow.placedBlocks.Children[i]) < index * 20 + 1 && Canvas.GetBottom(mainWindow.placedBlocks.Children[i]) > index * 20 - 1)
+            if (Canvas.GetBottom(mainWindow.blocks.Children[i]) / 20 == index)
             {
-                mainWindow.placedBlocks.Children.RemoveAt(i);
+                mainWindow.blocks.Children.RemoveAt(i);
                 i--;
             }
-        }
-        for (int i = 0; i < mainWindow.placedBlocks.Children.Count; i++)
-        {
-            if (Canvas.GetBottom(mainWindow.placedBlocks.Children[i]) > index * 20)
+            else if (Canvas.GetBottom(mainWindow.blocks.Children[i]) / 20 > index)
             {
-                var yPos = Canvas.GetBottom(mainWindow.placedBlocks.Children[i]);
-                Canvas.SetBottom(mainWindow.placedBlocks.Children[i], yPos - 20);
+                var yPos = Canvas.GetBottom(mainWindow.blocks.Children[i]);
+                Canvas.SetBottom(mainWindow.blocks.Children[i], yPos - 20);
             }
         }
         reihen.RemoveAt(index);

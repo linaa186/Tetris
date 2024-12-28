@@ -9,6 +9,9 @@
         KeyDown="Window_KeyDown">
 
     <Canvas x:Name="feld" Width="200" Height="400" Background="Black">
+        <Canvas x:Name="blocks" Width="200" Height="400">
+
+        </Canvas>
         <Canvas x:Name="falling" Height="60" Width="60" Canvas.Left="60" Canvas.Top="0">
             <Canvas.LayoutTransform>
                 <RotateTransform x:Name="rotation" Angle="0"/>

@@ -33,18 +33,27 @@ public class SpawnManager
     public Block SpawnNewBlock()
     {
         mainWindow.rotation.Angle = 0;
-        Block aktBlock = nextBlock;
+        Random rnd = new Random();
+        Block aktBlock = blocks[rnd.Next(0, 7)];
+        //Block aktBlock = nextBlock;
         aktBlock.BuildBlock();
-        Canvas.SetLeft(mainWindow.falling, 80);
-        if(aktBlock.Type == "1x4")
+
+        foreach (var c in aktBlock.cubes)
         {
-            Canvas.SetLeft(mainWindow.falling, 60);
+            c.CreateCube(/*c.CubePosX, c.CubePosY*/);
         }
-        Canvas.SetTop(mainWindow.falling, 0);
-        var child = mainWindow.nextBlock.Children[0];
-        mainWindow.nextBlock.Children.Clear();
-        mainWindow.falling.Children.Add(child);
-        NextBlock();
+
+
+        //Canvas.SetLeft(mainWindow.falling, 80);
+        //if(aktBlock.Type == "1x4")
+        //{
+        //    Canvas.SetLeft(mainWindow.falling, 60);
+        //}
+        //Canvas.SetTop(mainWindow.falling, 0);
+        //var child = mainWindow.nextBlock.Children[0];
+        //mainWindow.nextBlock.Children.Clear();
+        //mainWindow.falling.Children.Add(child);
+        //NextBlock();
         return aktBlock;
     }
 
@@ -53,7 +62,7 @@ public class SpawnManager
         mainWindow.nextBlock.Children.Clear();
         Random rnd = new Random();
         nextBlock = blocks[rnd.Next(0, 7)];
-        //nextBlock = blocks[4];
+        //nextBlock = blocks[0];
         switch (nextBlock.Type)
         {
             case "rightL":

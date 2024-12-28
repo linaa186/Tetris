@@ -30,7 +30,7 @@ public class TetrisGame
         dp.Interval = new TimeSpan(0, 0, 0, 0, 500);
         dp.Tick += Dp_Tick;
     }
-    
+
     public void Start()
     {
         mainWindow.start.Visibility = Visibility.Hidden;
@@ -38,7 +38,7 @@ public class TetrisGame
         spielfeld = new Spielfeld();
         mainWindow.placedBlocks.Children.Clear();
         gameActive = true;
-        spawnManager.NextBlock();
+        //spawnManager.NextBlock();
         aktBlock = spawnManager.SpawnNewBlock();
         dp.Start();
     }
@@ -47,17 +47,16 @@ public class TetrisGame
     {
         if (spielfeld.IsFree(aktBlock, "down"))
         {
-            Canvas.SetTop(mainWindow.falling, Canvas.GetTop(mainWindow.falling) + 20);
             aktBlock.MoveVertical(-1);
         }
         else
         {
             spielfeld.PlaceBlock(aktBlock);
-            mainWindow.falling.Children.Clear();
             if (!spielfeld.IsGameOver)
             {
                 aktBlock = spawnManager.SpawnNewBlock();
-            } else
+            }
+            else
             {
                 gameActive = false;
                 mainWindow.gameOverText.Visibility = Visibility.Visible;
@@ -72,15 +71,12 @@ public class TetrisGame
     {
         if (gameActive)
         {
-            var xPos = Canvas.GetLeft(mainWindow.falling);
             if (e.Key == Key.Left && spielfeld.IsFree(aktBlock, "left"))
             {
-                Canvas.SetLeft(mainWindow.falling, xPos - 20);
                 aktBlock.MoveHorizontal(-1);
             }
             else if (e.Key == Key.Right && spielfeld.IsFree(aktBlock, "right"))
             {
-                Canvas.SetLeft(mainWindow.falling, xPos + 20);
                 aktBlock.MoveHorizontal(1);
             }
             else if (e.Key == Key.Up && aktBlock.Type != "2x2")
@@ -96,7 +92,6 @@ public class TetrisGame
             }
             else if (e.Key == Key.Down && spielfeld.IsFree(aktBlock, "down"))
             {
-                Canvas.SetTop(mainWindow.falling, Canvas.GetTop(mainWindow.falling) + 20);
                 aktBlock.MoveVertical(-1);
             }
         }
@@ -163,20 +158,25 @@ public class TetrisGame
             {
                 xi += (yi - y0) * direction;
                 yi = y0;
-            } else if (yi == y0)
+            }
+            else if (yi == y0)
             {
                 yi -= (xi - x0) * direction;
                 xi = x0;
-            } else if(xi < x0 && yi > y0)
+            }
+            else if (xi < x0 && yi > y0)
             {
                 xi += 2 * direction;
-            } else if(xi > x0 && yi > y0)
+            }
+            else if (xi > x0 && yi > y0)
             {
                 yi -= 2 * direction;
-            } else if(xi > x0 && yi < y0)
+            }
+            else if (xi > x0 && yi < y0)
             {
                 xi -= 2 * direction;
-            } else if(xi < x0 && yi < y0)
+            }
+            else if (xi < x0 && yi < y0)
             {
                 yi += 2 * direction;
             }

@@ -15,29 +15,40 @@ using System.Windows.Data;
 
 namespace Tetris;
 
-public class Cube
+public class Cube : INotifyPropertyChanged
 {
-    //int cubePosX;
-    //public int CubePosX
-    //{
-    //    get { return cubePosX; }
-    //    set
-    //    {
-    //        cubePosX = value;
-    //    }
-    //}
-    public int CubePosX { get; set; }
-    public int CubePosY { get; set; }
+    int cubePosX;
+    public int CubePosX
+    {
+        get { return cubePosX; }
+        set
+        {
+            cubePosX = value;
+            OnPropertyChanged(nameof(CubePosX));
+        }
+    }
+
+    int cubePosY;
+    public int CubePosY
+    {
+        get { return cubePosY; }
+        set
+        {
+            cubePosY = value;
+            OnPropertyChanged(nameof(CubePosY));
+        }
+    }
     public string Type { get; set; }
     MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-    
+    public event PropertyChangedEventHandler PropertyChanged;
+
 
     public Cube(string type)
     {
         Type = type;
     }
 
-    public void CreateCube(int XPos, int YPos)
+    public void CreateCube()
     {
         var cube = new System.Windows.Shapes.Rectangle
         {
@@ -72,8 +83,31 @@ public class Cube
                 cube.Fill = Brushes.Black;
                 break;
         }
-        Canvas.SetLeft(cube, XPos * 20);
-        Canvas.SetBottom(cube, YPos * 20);
-        mainWindow.placedBlocks.Children.Add(cube);
+        BindPositionToCanvas(cube, mainWindow.blocks);
+        mainWindow.blocks.Children.Add(cube);
+    }
+
+    void BindPositionToCanvas(System.Windows.Shapes.Rectangle rect, Canvas canvas)
+    {
+        var leftBinding = new Binding(nameof(CubePosX))
+        {
+            Source = this,
+            Converter = new PositionToCanvasConverter(),
+            Mode = BindingMode.TwoWay
+        };
+        rect.SetBinding(Canvas.LeftProperty, leftBinding);
+
+        var bottomBinding = new Binding(nameof(CubePosY))
+        {
+            Source = this,
+            Converter = new PositionToCanvasConverter(),
+            Mode = BindingMode.TwoWay
+        };
+        rect.SetBinding(Canvas.BottomProperty, bottomBinding);
+    }
+
+    protected void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

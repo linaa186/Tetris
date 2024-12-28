@@ -14,34 +14,19 @@ namespace Tetris;
 public class Block
 {
     MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
-    //public int PosX { get; set; }
-    //public int PosY { get; set; }
     public string Type { get; set; }
     public Cube[] cubes = new Cube[4];
 
     public Block(string type)
     {
         Type = type;
-        for(int i = 0; i < cubes.Length; i++)
-        {
-            cubes[i] = new Cube(Type);
-        }
-        BuildBlock();
-    }
 
-    public bool OnGround()
-    {
-        //var position = Canvas.GetTop(mainWindow.falling);
-        if (Canvas.GetTop(mainWindow.falling) <= mainWindow.feld.Height)
-        {
-            return false;
-        }
-        return true;
+        BuildBlock();
     }
 
     public void MoveHorizontal(int direction)
     {
-        foreach(Cube c in cubes)
+        foreach (Cube c in cubes)
         {
             c.CubePosX += direction;
         }
@@ -57,6 +42,10 @@ public class Block
 
     public void BuildBlock()
     {
+        for (int i = 0; i < cubes.Length; i++)
+        {
+            cubes[i] = new Cube(Type);
+        }
         switch (Type)
         {
             case "rightL":
