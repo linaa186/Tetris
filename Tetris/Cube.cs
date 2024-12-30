@@ -41,6 +41,16 @@ public class Cube : INotifyPropertyChanged
     public string Type { get; set; }
     MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
     public event PropertyChangedEventHandler PropertyChanged;
+    Dictionary<string, SolidColorBrush> colors = new Dictionary<string, SolidColorBrush> 
+    {
+        { "rightL", Brushes.Red },
+        { "leftL", Brushes.Yellow },
+        { "rightZ", Brushes.HotPink },
+        { "leftZ", Brushes.DarkViolet },
+        { "1x4", Brushes.Orange },
+        { "2x2", Brushes.Blue },
+        { "T", Brushes.Green }
+    };
 
 
     public Cube(string type)
@@ -56,32 +66,9 @@ public class Cube : INotifyPropertyChanged
             Height = 20
         };
 
-        switch (Type)
+        if(colors.TryGetValue(Type, out SolidColorBrush color))
         {
-            case "rightL":
-                cube.Fill = Brushes.Red;
-                break;
-            case "leftL":
-                cube.Fill = Brushes.Yellow;
-                break;
-            case "rightZ":
-                cube.Fill = Brushes.HotPink;
-                break;
-            case "leftZ":
-                cube.Fill = Brushes.DarkViolet;
-                break;
-            case "1x4":
-                cube.Fill = Brushes.Orange;
-                break;
-            case "2x2":
-                cube.Fill = Brushes.Blue;
-                break;
-            case "T":
-                cube.Fill = Brushes.Green;
-                break;
-            default:
-                cube.Fill = Brushes.Black;
-                break;
+            cube.Fill = color;
         }
         BindPositionToCanvas(cube, mainWindow.blocks);
         mainWindow.blocks.Children.Add(cube);
