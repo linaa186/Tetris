@@ -38,7 +38,7 @@ public class TetrisGame
         spielfeld = new Spielfeld();
         mainWindow.placedBlocks.Children.Clear();
         gameActive = true;
-        //spawnManager.NextBlock();
+        spawnManager.NextBlock();
         aktBlock = spawnManager.SpawnNewBlock();
         dp.Start();
     }

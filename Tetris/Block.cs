@@ -20,7 +20,6 @@ public class Block
     public Block(string type)
     {
         Type = type;
-
         BuildBlock();
     }
 
