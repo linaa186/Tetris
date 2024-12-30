@@ -36,7 +36,7 @@ public class TetrisGame
         mainWindow.start.Visibility = Visibility.Hidden;
         mainWindow.gameOverText.Visibility = Visibility.Hidden;
         spielfeld = new Spielfeld();
-        mainWindow.placedBlocks.Children.Clear();
+        mainWindow.blocks.Children.Clear();
         gameActive = true;
         spawnManager.NextBlock();
         aktBlock = spawnManager.SpawnNewBlock();
@@ -99,25 +99,17 @@ public class TetrisGame
 
     void RotaionHilfsmethode()
     {
-        var xPos = Canvas.GetLeft(mainWindow.falling);
-        var yPos = Canvas.GetTop(mainWindow.falling);
         Rotate(1);
         while (aktBlock.cubes[1].CubePosX < 0 || aktBlock.cubes[2].CubePosX < 0 || aktBlock.cubes[3].CubePosX < 0)
         {
-            xPos += 20;
-            Canvas.SetLeft(mainWindow.falling, xPos);
             aktBlock.MoveHorizontal(1);
         }
         while (aktBlock.cubes[1].CubePosX > 9 || aktBlock.cubes[2].CubePosX > 9 || aktBlock.cubes[3].CubePosX > 9)
         {
-            xPos -= 20;
-            Canvas.SetLeft(mainWindow.falling, xPos);
             aktBlock.MoveHorizontal(-1);
         }
         while (aktBlock.cubes[1].CubePosY < 0 || aktBlock.cubes[2].CubePosY < 0 || aktBlock.cubes[3].CubePosY < 0)
         {
-            yPos -= 20;
-            Canvas.SetTop(mainWindow.falling, yPos);
             aktBlock.MoveVertical(1);
         }
         for (int i = 0; i < 2; i++)
@@ -126,14 +118,10 @@ public class TetrisGame
             {
                 if (spielfeld.IsFree(aktBlock, "left"))
                 {
-                    xPos -= 20;
-                    Canvas.SetLeft(mainWindow.falling, xPos);
                     aktBlock.MoveHorizontal(-1);
                 }
                 else if (spielfeld.IsFree(aktBlock, "right"))
                 {
-                    xPos += 20;
-                    Canvas.SetLeft(mainWindow.falling, xPos);
                     aktBlock.MoveHorizontal(+1);
                 }
             }
@@ -146,7 +134,7 @@ public class TetrisGame
 
     void Rotate(int direction)
     {
-        mainWindow.rotation.Angle += 90 * direction;
+        //mainWindow.rotation.Angle += 90 * direction;
         for (int i = 1; i < 4; i++)
         {
             int xi = aktBlock.cubes[i].CubePosX;
