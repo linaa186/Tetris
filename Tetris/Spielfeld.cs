@@ -118,12 +118,12 @@ public class Spielfeld
     {
         for (int i = 0; i < mainWindow.blocks.Children.Count; i++)
         {
-            if (Canvas.GetBottom(mainWindow.blocks.Children[i]) / 20 == index)
+            if (Canvas.GetBottom(mainWindow.blocks.Children[i]) / 20 == index && Canvas.GetLeft(mainWindow.blocks.Children[i]) >= 0)
             {
                 mainWindow.blocks.Children.RemoveAt(i);
                 i--;
             }
-            else if (Canvas.GetBottom(mainWindow.blocks.Children[i]) / 20 > index)
+            else if (Canvas.GetBottom(mainWindow.blocks.Children[i]) / 20 > index && Canvas.GetLeft(mainWindow.blocks.Children[i]) >= 0)
             {
                 var yPos = Canvas.GetBottom(mainWindow.blocks.Children[i]);
                 Canvas.SetBottom(mainWindow.blocks.Children[i], yPos - 20);

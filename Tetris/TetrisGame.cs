@@ -23,6 +23,8 @@ public class TetrisGame
     public DispatcherTimer dp = new DispatcherTimer();
     Block aktBlock;
     bool gameActive = false;
+    Block holdBlock;
+    bool canHold = true;
     public Sound Sound { get; private set; } = new Sound();
 
     public TetrisGame()
@@ -52,6 +54,7 @@ public class TetrisGame
         else
         {
             spielfeld.PlaceBlock(aktBlock);
+            canHold = true;
             if (!spielfeld.IsGameOver)
             {
                 aktBlock = spawnManager.SpawnNewBlock();
@@ -93,6 +96,9 @@ public class TetrisGame
             else if (e.Key == Key.Down && spielfeld.IsFree(aktBlock, "down"))
             {
                 aktBlock.MoveVertical(-1);
+            } else if (e.Key == Key.RightCtrl && canHold)
+            {
+                HoldBlock();
             }
         }
     }
@@ -134,7 +140,6 @@ public class TetrisGame
 
     void Rotate(int direction)
     {
-        //mainWindow.rotation.Angle += 90 * direction;
         for (int i = 1; i < 4; i++)
         {
             int xi = aktBlock.cubes[i].CubePosX;
@@ -172,5 +177,27 @@ public class TetrisGame
             aktBlock.cubes[i].CubePosX = xi;
             aktBlock.cubes[i].CubePosY = yi;
         }
+    }
+
+    void HoldBlock()
+    {
+        if (holdBlock == null)
+        {
+            holdBlock = aktBlock;
+            aktBlock = spawnManager.SpawnNewBlock();
+        } else
+        {
+            var block = holdBlock;
+            holdBlock = aktBlock;
+            aktBlock = block;
+            aktBlock.SetPosition();
+        }
+        holdBlock.SetPosition();
+        foreach (var c in holdBlock.cubes)
+        {
+            c.CubePosX -= 9;
+            c.CubePosY -= 2;
+        }
+        canHold = false;
     }
 }

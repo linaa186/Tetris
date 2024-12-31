@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\blue-gradient-background.jpg" />
     <None Remove="Assets\TetrisSoundtrack.mp3" />
     <None Remove="TetrisSoundtrack.mp3" />
   </ItemGroup>
@@ -16,6 +17,12 @@
     <Content Include="Assets\TetrisSoundtrack.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\blue-gradient-background.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

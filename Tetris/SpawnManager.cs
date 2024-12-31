@@ -34,11 +34,12 @@ public class SpawnManager
     {
         //mainWindow.rotation.Angle = 0;
         Block aktBlock = nextBlock;
-        foreach (var c in nextBlock.cubes)
-        {
-            c.CubePosX -= 9;
-            c.CubePosY += 2;
-        }
+        aktBlock.SetPosition();
+        //foreach (var c in nextBlock.cubes)
+        //{
+        //    c.CubePosX -= 9;
+        //    c.CubePosY += 2;
+        //}
         NextBlock();
         return aktBlock;
     }

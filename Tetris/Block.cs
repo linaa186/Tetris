@@ -45,6 +45,11 @@ public class Block
         {
             cubes[i] = new Cube(Type);
         }
+        SetPosition();
+    }
+
+    public void SetPosition()
+    {
         switch (Type)
         {
             case "rightL":
@@ -54,10 +59,10 @@ public class Block
                 cubes[3].CubePosX = 5; cubes[3].CubePosY = 17;
                 break;
             case "leftL":
-                cubes[0].CubePosX = 5; cubes[0].CubePosY = 18;
-                cubes[1].CubePosX = 5; cubes[1].CubePosY = 19;
-                cubes[2].CubePosX = 6; cubes[2].CubePosY = 19;
-                cubes[3].CubePosX = 5; cubes[3].CubePosY = 17;
+                cubes[0].CubePosX = 4; cubes[0].CubePosY = 18;
+                cubes[1].CubePosX = 4; cubes[1].CubePosY = 19;
+                cubes[2].CubePosX = 5; cubes[2].CubePosY = 19;
+                cubes[3].CubePosX = 4; cubes[3].CubePosY = 17;
                 break;
             case "rightZ":
                 cubes[0].CubePosX = 5; cubes[0].CubePosY = 18;
@@ -84,10 +89,10 @@ public class Block
                 cubes[3].CubePosX = 5; cubes[3].CubePosY = 19;
                 break;
             case "T":
-                cubes[0].CubePosX = 5; cubes[0].CubePosY = 18;
-                cubes[1].CubePosX = 5; cubes[1].CubePosY = 19;
-                cubes[2].CubePosX = 5; cubes[2].CubePosY = 17;
-                cubes[3].CubePosX = 6; cubes[3].CubePosY = 18;
+                cubes[0].CubePosX = 4; cubes[0].CubePosY = 18;
+                cubes[1].CubePosX = 4; cubes[1].CubePosY = 19;
+                cubes[2].CubePosX = 4; cubes[2].CubePosY = 17;
+                cubes[3].CubePosX = 5; cubes[3].CubePosY = 18;
                 break;
         }
     }
