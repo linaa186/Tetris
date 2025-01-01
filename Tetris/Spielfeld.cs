@@ -49,7 +49,7 @@ public class Spielfeld
             switch (direction)
             {
                 case "down":
-                    if (cube.CubePosY > 0 && reihen[cube.CubePosY - 1][cube.CubePosX] == null)
+                    if (IstImFeld(cube) && cube.CubePosY > 0 && reihen[cube.CubePosY - 1][cube.CubePosX] == null)
                     {
                         free = true;
                     }
@@ -59,7 +59,7 @@ public class Spielfeld
                     }
                     break;
                 case "left":
-                    if (cube.CubePosX > 0 && reihen[cube.CubePosY][cube.CubePosX - 1] == null)
+                    if (IstImFeld(cube) && cube.CubePosX > 0 && reihen[cube.CubePosY][cube.CubePosX - 1] == null)
                     {
                         free = true;
                     }
@@ -69,7 +69,7 @@ public class Spielfeld
                     }
                     break;
                 case "right":
-                    if (cube.CubePosX < 9 && reihen[cube.CubePosY][cube.CubePosX + 1] == null)
+                    if (IstImFeld(cube) && cube.CubePosX < 9 && reihen[cube.CubePosY][cube.CubePosX + 1] == null)
                     {
                         free = true;
                     }
@@ -79,7 +79,7 @@ public class Spielfeld
                     }
                     break;
                 case "current":
-                    if (reihen[cube.CubePosY][cube.CubePosX] == null)
+                    if (IstImFeld(cube) && reihen[cube.CubePosY][cube.CubePosX] == null)
                     {
                         free = true;
                     }
@@ -131,5 +131,16 @@ public class Spielfeld
         }
         reihen.RemoveAt(index);
         reihen.Add(new Cube[10]);
+    }
+
+    private bool IstImFeld(Cube cube)
+    {
+        if(cube.CubePosX >= 0 && cube.CubePosX <= 9 && cube.CubePosY >= 0 && cube.CubePosY <= 19)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
     }
 }
