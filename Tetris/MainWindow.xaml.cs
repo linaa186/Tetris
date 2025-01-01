@@ -20,14 +20,11 @@ namespace Tetris
     public partial class MainWindow : Window
     {
         public TetrisGame Game { get; set; }
-        public GridBackground GridBackground { get; set; }
         
         public MainWindow()
         {
             InitializeComponent();
             Game = new TetrisGame();
-            GridBackground = new GridBackground();
-            Loaded += (s, e) => GridBackground.DrawGrid();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)

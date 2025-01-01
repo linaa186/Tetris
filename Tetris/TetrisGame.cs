@@ -26,9 +26,12 @@ public class TetrisGame
     Block holdBlock;
     bool canHold = true;
     public Sound Sound { get; private set; } = new Sound();
+    public GridBackground GridBackground { get; set; }
 
     public TetrisGame()
     {
+        GridBackground = new GridBackground();
+        mainWindow.Loaded += (s, e) => GridBackground.DrawGrid();
         dp.Interval = new TimeSpan(0, 0, 0, 0, 500);
         dp.Tick += Dp_Tick;
     }
