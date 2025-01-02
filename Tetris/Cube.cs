@@ -70,11 +70,11 @@ public class Cube : INotifyPropertyChanged
         {
             cube.Fill = color;
         }
-        BindPositionToCanvas(cube/*, mainWindow.blocks*/);
+        BindPositionToCanvas(cube);
         mainWindow.blocks.Children.Add(cube);
     }
 
-    void BindPositionToCanvas(System.Windows.Shapes.Rectangle rect/*, Canvas canvas*/)
+    void BindPositionToCanvas(System.Windows.Shapes.Rectangle rect)
     {
         var leftBinding = new Binding(nameof(CubePosX))
         {

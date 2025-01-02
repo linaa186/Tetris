@@ -25,7 +25,7 @@ public class TetrisGame
     bool gameActive = false;
     Block holdBlock;
     bool canHold = true;
-    public Sound Sound { get; private set; } = new Sound();
+    //public Sound Sound { get; private set; } = new Sound();
     public GridBackground GridBackground { get; set; }
 
     public TetrisGame()

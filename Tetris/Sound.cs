@@ -21,16 +21,16 @@ public class Sound
         mediaPlayer.Play();
     }
 
-    public void Mute()
-    {
-        if(mediaPlayer.Volume > 0)
-        {
-            mediaPlayer.Volume = 0;
-            mainWindow.mute.Background = Brushes.LightGray;
-        } else
-        {
-            mediaPlayer.Volume = 0.2;
-            mainWindow.mute.Background = Brushes.LightBlue;
-        }
-    }
+    //public void Mute()
+    //{
+    //    if(mediaPlayer.Volume > 0)
+    //    {
+    //        mediaPlayer.Volume = 0;
+    //        mainWindow.mute.Background = Brushes.LightGray;
+    //    } else
+    //    {
+    //        mediaPlayer.Volume = 0.2;
+    //        mainWindow.mute.Background = Brushes.LightBlue;
+    //    }
+    //}
 }

@@ -32,10 +32,10 @@ namespace Tetris
             Game.MoveBlock(e);
         }
 
-        private void mute_Click(object sender, RoutedEventArgs e)
-        {
-            Game.Sound.Mute();
-        }
+        //private void mute_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Game.Sound.Mute();
+        //}
 
         private void start_Click(object sender, RoutedEventArgs e)
         {
