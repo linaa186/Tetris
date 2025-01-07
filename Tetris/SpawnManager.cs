@@ -32,21 +32,14 @@ public class SpawnManager
 
     public Block SpawnNewBlock()
     {
-        //mainWindow.rotation.Angle = 0;
         Block aktBlock = nextBlock;
         aktBlock.SetPosition();
-        //foreach (var c in nextBlock.cubes)
-        //{
-        //    c.CubePosX -= 9;
-        //    c.CubePosY += 2;
-        //}
         NextBlock();
         return aktBlock;
     }
 
     public void NextBlock()
     {
-        //mainWindow.nextBlock.Children.Clear();
         Random rnd = new Random();
         nextBlock = new Block(blocks[rnd.Next(0, 7)].Type);
         foreach(var c in nextBlock.cubes)

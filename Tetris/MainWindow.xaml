@@ -26,6 +26,7 @@
         <Canvas x:Name="placedBlocks" Width="200" Height="400">
     
         </Canvas>-->
+        <TextBlock x:Name="scoreText" Text="{Binding Score, StringFormat=Score: {0}}" Width="60" Canvas.Left="-230" Canvas.Top="20" TextAlignment="Left" FontWeight="Bold" FontSize="11"/>
         <TextBlock x:Name="gameOverText" Panel.ZIndex="1" Foreground="Red" Background="Black" FontWeight="Black" FontSize="35" Width="200" Canvas.Top="160" TextAlignment="Center" Visibility="Hidden">Game Over</TextBlock>
         <TextBlock Width="60" Canvas.Left="250" Canvas.Top="20" TextAlignment="Center" FontWeight="Bold" FontSize="11">Next Block</TextBlock>
         <TextBlock Width="60" Canvas.Left="-110" Canvas.Top="20" TextAlignment="Center" FontWeight="Bold" FontSize="11">Hold</TextBlock>

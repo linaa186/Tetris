@@ -74,6 +74,7 @@ public class Block
                 cubes[0].CubePosX = 5; cubes[0].CubePosY = 18;
                 cubes[1].CubePosX = 5; cubes[1].CubePosY = 19;
                 cubes[2].CubePosX = 6; cubes[2].CubePosY = 19;
+               
                 cubes[3].CubePosX = 4; cubes[3].CubePosY = 18;
                 break;
             case "1x4":

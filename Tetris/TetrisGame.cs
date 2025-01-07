@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -15,16 +16,30 @@ using System.Windows.Threading;
 
 namespace Tetris;
 
-public class TetrisGame
+public class TetrisGame : INotifyPropertyChanged
 {
     MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
     Spielfeld spielfeld;
-    SpawnManager spawnManager = new SpawnManager();
+    SpawnManager spawnManager;
     public DispatcherTimer dp = new DispatcherTimer();
     Block aktBlock;
     bool gameActive = false;
     Block holdBlock;
     bool canHold = true;
+    private int score;
+
+    public int Score
+    {
+        get { return score; }
+        set
+        {
+            if (score != value)
+            {
+                score = value;
+                OnPropertyChanged(nameof(Score));
+            }
+        }
+    }
     //public Sound Sound { get; private set; } = new Sound();
     public GridBackground GridBackground { get; set; }
 
@@ -40,7 +55,9 @@ public class TetrisGame
     {
         mainWindow.start.Visibility = Visibility.Hidden;
         mainWindow.gameOverText.Visibility = Visibility.Hidden;
+        Score = 0;
         spielfeld = new Spielfeld();
+        spawnManager = new SpawnManager();
         mainWindow.blocks.Children.Clear();
         gameActive = true;
         spawnManager.NextBlock();
@@ -57,6 +74,7 @@ public class TetrisGame
         else
         {
             spielfeld.PlaceBlock(aktBlock);
+            Score += spielfeld.RowsComplete * 10;
             canHold = true;
             if (!spielfeld.IsGameOver)
             {
@@ -202,5 +220,12 @@ public class TetrisGame
             c.CubePosY -= 2;
         }
         canHold = false;
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

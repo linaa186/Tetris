@@ -15,6 +15,7 @@ public class Spielfeld
     MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
     public List<Cube[]> reihen = new List<Cube[]>();
     public bool IsGameOver { get; set; }
+    public int RowsComplete { get; set; }
 
     public Spielfeld()
     {
@@ -26,6 +27,7 @@ public class Spielfeld
 
     public void PlaceBlock(Block block)
     {
+        RowsComplete = 0;
         foreach (Cube c in block.cubes)
         {
             Cube temp = c;
@@ -108,6 +110,7 @@ public class Spielfeld
             }
             if (complete)
             {
+                RowsComplete++;
                 DeleteRow(i);
                 i--;
             }

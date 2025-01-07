@@ -25,6 +25,7 @@ namespace Tetris
         {
             InitializeComponent();
             Game = new TetrisGame();
+            DataContext = Game;
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
