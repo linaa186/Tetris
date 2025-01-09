@@ -26,6 +26,7 @@ public class TetrisGame : INotifyPropertyChanged
     bool gameActive = false;
     Block holdBlock;
     bool canHold = true;
+    bool pausiert = false;
     private int score;
 
     public int Score
@@ -93,7 +94,11 @@ public class TetrisGame : INotifyPropertyChanged
 
     public void MoveBlock(KeyEventArgs e)
     {
-        if (gameActive)
+        if (gameActive && e.Key == Key.Escape)
+        {
+            Pausieren();
+        }
+        if (gameActive && !pausiert)
         {
             if (e.Key == Key.Left && spielfeld.IsFree(aktBlock, "left"))
             {
@@ -121,6 +126,20 @@ public class TetrisGame : INotifyPropertyChanged
             {
                 HoldBlock();
             }
+        }
+    }
+
+    void Pausieren()
+    {
+        pausiert = !pausiert;
+        if (pausiert)
+        {
+            dp.Stop();
+            mainWindow.pausiertText.Visibility = Visibility.Visible;
+        } else
+        {
+            dp.Start();
+            mainWindow.pausiertText.Visibility = Visibility.Hidden;
         }
     }
 

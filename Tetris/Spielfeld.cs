@@ -36,7 +36,7 @@ public class Spielfeld
         CompleteRow();
         foreach (Cube c in block.cubes)
         {
-            if (c.CubePosY > 17)
+            if (c.CubePosY > 16)
             {
                 IsGameOver = true;
             }
