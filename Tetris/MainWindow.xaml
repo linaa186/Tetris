@@ -10,20 +10,39 @@
     <Window.Background>
         <ImageBrush ImageSource="pack://application:,,,/Assets/blue-gradient-background.jpg"/>
     </Window.Background>
+    <Window.Resources>
+        <Style x:Key="txtStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Panel.ZIndex" Value="1"/>
+        </Style>
+        <Style x:Key="btnStyle" TargetType="Button">
+            <Setter Property="Width" Value="60"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="LightSteelBlue"/>
+            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="Panel.ZIndex" Value="1"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
     <Canvas x:Name="feld" Width="200" Height="400" Background="Black">
         <Canvas x:Name="blocks" Width="200" Height="400">
 
         </Canvas>
-        <TextBlock x:Name="scoreText" Text="{Binding Score, StringFormat=Score: {0}}" Width="60" Canvas.Left="-230" Canvas.Top="20" TextAlignment="Left" FontWeight="Bold" FontSize="11"/>
-        <TextBlock x:Name="gameOverText" Panel.ZIndex="1" Foreground="Red" Background="Black" FontWeight="Black" FontSize="35" Width="200" Canvas.Top="160" TextAlignment="Center" Visibility="Hidden">Game Over</TextBlock>
-        <TextBlock x:Name="pausiertText" Panel.ZIndex="1" Foreground="White" Background="Black" FontWeight="Black" FontSize="35" Width="200" Canvas.Top="160" TextAlignment="Center" Visibility="Hidden">Pausiert</TextBlock>
-        <TextBlock Width="60" Canvas.Left="250" Canvas.Top="20" TextAlignment="Center" FontWeight="Bold" FontSize="11">Next Block</TextBlock>
-        <TextBlock Width="60" Canvas.Left="-110" Canvas.Top="20" TextAlignment="Center" FontWeight="Bold" FontSize="11">Hold</TextBlock>
-        <Button x:Name="start" Panel.ZIndex="1" Width="60" Height="20" FontWeight="Bold" Canvas.Left="70" Canvas.Top="190" Click="start_Click" Focusable="False">Start</Button>
-        <!--<Button x:Name="mute" Canvas.Left="250" Canvas.Top="350" Width="40" Background="LightBlue" BorderThickness="0" Click="mute_Click" Focusable="False">Mute</Button>-->
-        <Button x:Name="exit" Canvas.Right="250" Canvas.Top="350" Width="40" Background="LightBlue" BorderThickness="0" Click="exit_Click" Focusable="False">Exit</Button>
-        <TextBlock Canvas.Left="300" Canvas.Top="200" FontWeight="Bold" FontSize="11">Steuerung:</TextBlock>
-        <TextBlock Canvas.Left="300" Canvas.Top="220" FontSize="11">
+
+        <Button x:Name="start" Style="{StaticResource btnStyle}" Canvas.Left="70" Canvas.Top="190" Click="start_Click">Start</Button>
+        <!--<Button x:Name="mute" Style="{StaticResource btnStyle}" Canvas.Left="250" Canvas.Top="350" Click="mute_Click">Mute</Button>-->
+        <Button x:Name="exit" Style="{StaticResource btnStyle}" Canvas.Right="250" Canvas.Top="350" Click="exit_Click">Exit</Button>
+            
+        <TextBlock x:Name="scoreText" Style="{StaticResource txtStyle}" Text="{Binding Score, StringFormat=Score: {0}}" Width="60" Canvas.Left="-230" Canvas.Top="20" TextAlignment="Left"/>
+        <TextBlock x:Name="gameOverText" Style="{StaticResource txtStyle}" Foreground="Red" Background="Black" Width="200" Canvas.Top="160" FontSize="35" Visibility="Hidden">Game Over</TextBlock>
+        <TextBlock x:Name="pausiertText" Style="{StaticResource txtStyle}" Foreground="White" Background="Black" Width="200" Canvas.Top="160" FontSize="35" Visibility="Hidden">Pausiert</TextBlock>
+        <TextBlock Style="{StaticResource txtStyle}" Width="60" Canvas.Left="250" Canvas.Top="20">Next Block</TextBlock>
+        <TextBlock Style="{StaticResource txtStyle}" Width="60" Canvas.Left="-110" Canvas.Top="20">Hold</TextBlock>
+        <TextBlock Style="{StaticResource txtStyle}" Canvas.Left="300" Canvas.Top="200">Steuerung:</TextBlock>
+        <TextBlock Style="{StaticResource txtStyle}" Canvas.Left="300" Canvas.Top="220" TextAlignment="Left" FontWeight="Medium">
             Bewegen: Pfeiltaste links/rechts <LineBreak/>
             Drehen: Pfeiltaste oben <LineBreak/>
             Schneller Fallen: Pfeiltaste unten <LineBreak/>
