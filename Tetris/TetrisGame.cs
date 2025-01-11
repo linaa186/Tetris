@@ -74,21 +74,7 @@ public class TetrisGame : INotifyPropertyChanged
         }
         else
         {
-            spielfeld.PlaceBlock(aktBlock);
-            Score += spielfeld.RowsComplete * 10;
-            canHold = true;
-            if (!spielfeld.IsGameOver)
-            {
-                aktBlock = spawnManager.SpawnNewBlock();
-            }
-            else
-            {
-                gameActive = false;
-                mainWindow.gameOverText.Visibility = Visibility.Visible;
-                Canvas.SetTop(mainWindow.start, 220);
-                mainWindow.start.Visibility = Visibility.Visible;
-                dp.Stop();
-            }
+            BlockPlatzieren();
         }
     }
 
@@ -118,6 +104,7 @@ public class TetrisGame : INotifyPropertyChanged
                 {
                     aktBlock.MoveVertical(-1);
                 }
+                BlockPlatzieren();
             }
             else if (e.Key == Key.Down && spielfeld.IsFree(aktBlock, "down"))
             {
@@ -126,6 +113,25 @@ public class TetrisGame : INotifyPropertyChanged
             {
                 HoldBlock();
             }
+        }
+    }
+
+    void BlockPlatzieren()
+    {
+        spielfeld.PlaceBlock(aktBlock);
+        Score += spielfeld.RowsComplete * 10;
+        canHold = true;
+        if (!spielfeld.IsGameOver)
+        {
+            aktBlock = spawnManager.SpawnNewBlock();
+        }
+        else
+        {
+            gameActive = false;
+            mainWindow.gameOverText.Visibility = Visibility.Visible;
+            Canvas.SetTop(mainWindow.start, 220);
+            mainWindow.start.Visibility = Visibility.Visible;
+            dp.Stop();
         }
     }
 
