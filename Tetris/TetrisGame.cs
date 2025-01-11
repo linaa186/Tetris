@@ -22,14 +22,14 @@ public partial class TetrisGame : INotifyPropertyChanged
     MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
     Spielfeld spielfeld;
     SpawnManager spawnManager;
+    BlockController blockController = new BlockController();
     public DispatcherTimer dp = new DispatcherTimer();
+    public GridBackground GridBackground { get; set; }
     Block aktBlock;
-    bool gameActive = false;
-    Block holdBlock;
     bool canHold = true;
     bool pausiert = false;
+    bool gameActive = false;
     private int score;
-
     public int Score
     {
         get { return score; }
@@ -42,7 +42,6 @@ public partial class TetrisGame : INotifyPropertyChanged
             }
         }
     }
-    public GridBackground GridBackground { get; set; }
 
     public TetrisGame()
     {
@@ -60,8 +59,8 @@ public partial class TetrisGame : INotifyPropertyChanged
         Score = 0;
         spielfeld = new Spielfeld();
         spawnManager = new SpawnManager();
-        mainWindow.blocks.Children.Clear();
         gameActive = true;
+        mainWindow.blocks.Children.Clear();
         spawnManager.NextBlock();
         aktBlock = spawnManager.SpawnNewBlock();
         dp.Start();
@@ -121,7 +120,7 @@ public partial class TetrisGame : INotifyPropertyChanged
     {
         if (gameActive && !pausiert && aktBlock.Type != "2x2")
         {
-            RotaionHilfsmethode();
+            aktBlock = blockController.ValidRotation(aktBlock, spielfeld);
         }
     }
 
@@ -152,23 +151,10 @@ public partial class TetrisGame : INotifyPropertyChanged
     {
         if(gameActive && !pausiert && canHold)
         {
-            if (holdBlock == null)
+            aktBlock = blockController.Hold(aktBlock);
+            if (aktBlock == null)
             {
-                holdBlock = aktBlock;
                 aktBlock = spawnManager.SpawnNewBlock();
-            }
-            else
-            {
-                var block = holdBlock;
-                holdBlock = aktBlock;
-                aktBlock = block;
-                aktBlock.SetStartPosition();
-            }
-            holdBlock.SetStartPosition();
-            foreach (var c in holdBlock.cubes)
-            {
-                c.CubePosX -= 9;
-                c.CubePosY -= 2;
             }
             canHold = false;
         }
@@ -179,93 +165,17 @@ public partial class TetrisGame : INotifyPropertyChanged
         spielfeld.PlaceBlock(aktBlock);
         Score += spielfeld.RowsComplete * 10;
         canHold = true;
-        if (!spielfeld.IsGameOver)
+        if (gameActive)
         {
             aktBlock = spawnManager.SpawnNewBlock();
         }
         else
         {
-            gameActive = false;
+            spielfeld.IsGameOver = true;
             mainWindow.gameOverText.Visibility = Visibility.Visible;
             Canvas.SetTop(mainWindow.start, 220);
             mainWindow.start.Visibility = Visibility.Visible;
             dp.Stop();
-        }
-    }
-
-    void RotaionHilfsmethode()
-    {
-        Rotate(1);
-        while (aktBlock.cubes[1].CubePosX < 0 || aktBlock.cubes[2].CubePosX < 0 || aktBlock.cubes[3].CubePosX < 0)
-        {
-            aktBlock.MoveHorizontal(1);
-        }
-        while (aktBlock.cubes[1].CubePosX > 9 || aktBlock.cubes[2].CubePosX > 9 || aktBlock.cubes[3].CubePosX > 9)
-        {
-            aktBlock.MoveHorizontal(-1);
-        }
-        while (aktBlock.cubes[1].CubePosY < 0 || aktBlock.cubes[2].CubePosY < 0 || aktBlock.cubes[3].CubePosY < 0)
-        {
-            aktBlock.MoveVertical(1);
-        }
-        for (int i = 0; i < 2; i++)
-        {
-            if (!spielfeld.IsFree(aktBlock, "current"))
-            {
-                if (spielfeld.IsFree(aktBlock, "left"))
-                {
-                    aktBlock.MoveHorizontal(-1);
-                }
-                else if (spielfeld.IsFree(aktBlock, "right"))
-                {
-                    aktBlock.MoveHorizontal(+1);
-                }
-            }
-        }
-        if (!spielfeld.IsFree(aktBlock, "current"))
-        {
-            Rotate(-1);
-        }
-    }
-
-    void Rotate(int direction)
-    {
-        for (int i = 1; i < 4; i++)
-        {
-            int xi = aktBlock.cubes[i].CubePosX;
-            int yi = aktBlock.cubes[i].CubePosY;
-            int x0 = aktBlock.cubes[0].CubePosX;
-            int y0 = aktBlock.cubes[0].CubePosY;
-
-            if (xi == x0)
-            {
-                xi += (yi - y0) * direction;
-                yi = y0;
-            }
-            else if (yi == y0)
-            {
-                yi -= (xi - x0) * direction;
-                xi = x0;
-            }
-            else if (xi < x0 && yi > y0)
-            {
-                xi += 2 * direction;
-            }
-            else if (xi > x0 && yi > y0)
-            {
-                yi -= 2 * direction;
-            }
-            else if (xi > x0 && yi < y0)
-            {
-                xi -= 2 * direction;
-            }
-            else if (xi < x0 && yi < y0)
-            {
-                yi += 2 * direction;
-            }
-
-            aktBlock.cubes[i].CubePosX = xi;
-            aktBlock.cubes[i].CubePosY = yi;
         }
     }
 
