@@ -26,26 +26,12 @@ namespace Tetris
             InitializeComponent();
             Game = new TetrisGame();
             DataContext = Game;
+            //DataContext = new TetrisGame();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             Game.MoveBlock(e);
-        }
-
-        //private void mute_Click(object sender, RoutedEventArgs e)
-        //{
-        //    Game.Sound.Mute();
-        //}
-
-        private void start_Click(object sender, RoutedEventArgs e)
-        {
-            Game.Start();
-        }
-
-        private void exit_Click(object sender, RoutedEventArgs e)
-        {
-            App.Current.Shutdown();
         }
     }
 }

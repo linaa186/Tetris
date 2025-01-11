@@ -9,14 +9,11 @@
 
   <ItemGroup>
     <None Remove="Assets\blue-gradient-background.jpg" />
-    <None Remove="Assets\TetrisSoundtrack.mp3" />
     <None Remove="TetrisSoundtrack.mp3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\TetrisSoundtrack.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
   </ItemGroup>
 
   <ItemGroup>

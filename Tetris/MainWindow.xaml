@@ -32,9 +32,8 @@
 
         </Canvas>
 
-        <Button x:Name="start" Style="{StaticResource btnStyle}" Canvas.Left="70" Canvas.Top="190" Click="start_Click">Start</Button>
-        <!--<Button x:Name="mute" Style="{StaticResource btnStyle}" Canvas.Left="250" Canvas.Top="350" Click="mute_Click">Mute</Button>-->
-        <Button x:Name="exit" Style="{StaticResource btnStyle}" Canvas.Right="250" Canvas.Top="350" Click="exit_Click">Exit</Button>
+        <Button x:Name="start" Command="{Binding StartCommand}" Style="{StaticResource btnStyle}" Canvas.Left="70" Canvas.Top="190">Start</Button>
+        <Button x:Name="exit" Command="{Binding ExitGameCommand}" Style="{StaticResource btnStyle}" Canvas.Right="250" Canvas.Top="350">Exit</Button>
             
         <TextBlock x:Name="scoreText" Style="{StaticResource txtStyle}" Text="{Binding Score, StringFormat=Score: {0}}" Width="60" Canvas.Left="-230" Canvas.Top="20" TextAlignment="Left"/>
         <TextBlock x:Name="gameOverText" Style="{StaticResource txtStyle}" Foreground="Red" Background="Black" Width="200" Canvas.Top="160" FontSize="35" Visibility="Hidden">Game Over</TextBlock>

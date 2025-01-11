@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Input;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -16,7 +17,7 @@ using System.Windows.Threading;
 
 namespace Tetris;
 
-public class TetrisGame : INotifyPropertyChanged
+public partial class TetrisGame : INotifyPropertyChanged
 {
     MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
     Spielfeld spielfeld;
@@ -41,7 +42,6 @@ public class TetrisGame : INotifyPropertyChanged
             }
         }
     }
-    //public Sound Sound { get; private set; } = new Sound();
     public GridBackground GridBackground { get; set; }
 
     public TetrisGame()
@@ -52,6 +52,7 @@ public class TetrisGame : INotifyPropertyChanged
         dp.Tick += Dp_Tick;
     }
 
+    [RelayCommand]
     public void Start()
     {
         mainWindow.start.Visibility = Visibility.Hidden;
@@ -252,5 +253,11 @@ public class TetrisGame : INotifyPropertyChanged
     protected virtual void OnPropertyChanged(string propertyName)
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    [RelayCommand]
+    public void ExitGame()
+    {
+        App.Current.Shutdown();
     }
 }
