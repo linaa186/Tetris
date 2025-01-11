@@ -33,7 +33,7 @@ public class SpawnManager
     public Block SpawnNewBlock()
     {
         Block aktBlock = nextBlock;
-        aktBlock.SetPosition();
+        aktBlock.SetStartPosition();
         NextBlock();
         return aktBlock;
     }

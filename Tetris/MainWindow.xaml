@@ -5,11 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tetris"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="450" MinWidth="800" Height="500" Width="850"
-        KeyDown="Window_KeyDown">
+        Title="MainWindow" MinHeight="450" MinWidth="800" Height="500" Width="850">
     <Window.Background>
         <ImageBrush ImageSource="pack://application:,,,/Assets/blue-gradient-background.jpg"/>
     </Window.Background>
+    
+    <Window.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding PauseCommand}"/>
+        <KeyBinding Key="Left" Command="{Binding MoveLeftCommand}"/>
+        <KeyBinding Key="Right" Command="{Binding MoveRightCommand}"/>
+        <KeyBinding Key="Up" Command="{Binding RotateCommand}"/>
+        <KeyBinding Key="Space" Command="{Binding HardDropCommand}"/>
+        <KeyBinding Key="Down" Command="{Binding FastFallCommand}"/>
+        <KeyBinding Key="C" Command="{Binding HoldBlockCommand}"/>
+    </Window.InputBindings>
+    
     <Window.Resources>
         <Style x:Key="txtStyle" TargetType="TextBlock">
             <Setter Property="FontSize" Value="11"/>
@@ -27,6 +37,7 @@
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
     </Window.Resources>
+    
     <Canvas x:Name="feld" Width="200" Height="400" Background="Black">
         <Canvas x:Name="blocks" Width="200" Height="400">
 
@@ -46,7 +57,7 @@
             Drehen: Pfeiltaste oben <LineBreak/>
             Schneller Fallen: Pfeiltaste unten <LineBreak/>
             Block direkt Platzieren: Leertaste <LineBreak/>
-            Block halten: Strg rechts <LineBreak/>
+            Block halten: C <LineBreak/>
             Pause: Esc
         </TextBlock>
     </Canvas>

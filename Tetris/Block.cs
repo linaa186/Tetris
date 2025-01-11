@@ -45,10 +45,10 @@ public class Block
         {
             cubes[i] = new Cube(Type);
         }
-        SetPosition();
+        SetStartPosition();
     }
 
-    public void SetPosition()
+    public void SetStartPosition()
     {
         switch (Type)
         {

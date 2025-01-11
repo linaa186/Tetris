@@ -19,19 +19,10 @@ namespace Tetris
 {
     public partial class MainWindow : Window
     {
-        public TetrisGame Game { get; set; }
-        
         public MainWindow()
         {
             InitializeComponent();
-            Game = new TetrisGame();
-            DataContext = Game;
-            //DataContext = new TetrisGame();
-        }
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            Game.MoveBlock(e);
+            DataContext = new TetrisGame();
         }
     }
 }

@@ -79,41 +79,98 @@ public partial class TetrisGame : INotifyPropertyChanged
         }
     }
 
-    public void MoveBlock(KeyEventArgs e)
+    [RelayCommand]
+    public void Pause()
     {
-        if (gameActive && e.Key == Key.Escape)
+        if (gameActive)
         {
-            Pausieren();
+            pausiert = !pausiert;
+            if (pausiert)
+            {
+                dp.Stop();
+                mainWindow.pausiertText.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                dp.Start();
+                mainWindow.pausiertText.Visibility = Visibility.Hidden;
+            }
         }
+    }
+
+    [RelayCommand]
+    public void MoveLeft()
+    {
+        if(gameActive && !pausiert && spielfeld.IsFree(aktBlock, "left"))
+        {
+            aktBlock.MoveHorizontal(-1);
+        }
+    }
+
+    [RelayCommand]
+    public void MoveRight()
+    {
+        if (gameActive && !pausiert && spielfeld.IsFree(aktBlock, "right"))
+        {
+            aktBlock.MoveHorizontal(1);
+        }
+    }
+
+    [RelayCommand]
+    public void Rotate()
+    {
+        if (gameActive && !pausiert && aktBlock.Type != "2x2")
+        {
+            RotaionHilfsmethode();
+        }
+    }
+
+    [RelayCommand]
+    public void HardDrop()
+    {
         if (gameActive && !pausiert)
         {
-            if (e.Key == Key.Left && spielfeld.IsFree(aktBlock, "left"))
-            {
-                aktBlock.MoveHorizontal(-1);
-            }
-            else if (e.Key == Key.Right && spielfeld.IsFree(aktBlock, "right"))
-            {
-                aktBlock.MoveHorizontal(1);
-            }
-            else if (e.Key == Key.Up && aktBlock.Type != "2x2")
-            {
-                RotaionHilfsmethode();
-            }
-            else if (e.Key == Key.Space)
-            {
-                while (spielfeld.IsFree(aktBlock, "down"))
-                {
-                    aktBlock.MoveVertical(-1);
-                }
-                BlockPlatzieren();
-            }
-            else if (e.Key == Key.Down && spielfeld.IsFree(aktBlock, "down"))
+            while (spielfeld.IsFree(aktBlock, "down"))
             {
                 aktBlock.MoveVertical(-1);
-            } else if (e.Key == Key.RightCtrl && canHold)
-            {
-                HoldBlock();
             }
+            BlockPlatzieren();
+        }
+    }
+
+    [RelayCommand]
+    public void FastFall()
+    {
+        if (gameActive && !pausiert && spielfeld.IsFree(aktBlock, "down"))
+        {
+            aktBlock.MoveVertical(-1);
+        }
+    }
+    
+    [RelayCommand]
+    public void HoldBlock()
+    {
+        if(gameActive && !pausiert && canHold)
+        {
+            if (holdBlock == null)
+            {
+                holdBlock = aktBlock;
+                aktBlock = spawnManager.SpawnNewBlock();
+            }
+            else
+            {
+                var block = holdBlock;
+                holdBlock = aktBlock;
+                aktBlock = block;
+                aktBlock.SetStartPosition();
+            }
+            holdBlock.SetStartPosition();
+            foreach (var c in holdBlock.cubes)
+            {
+                c.CubePosX -= 9;
+                c.CubePosY -= 2;
+            }
+            canHold = false;
         }
     }
 
@@ -133,20 +190,6 @@ public partial class TetrisGame : INotifyPropertyChanged
             Canvas.SetTop(mainWindow.start, 220);
             mainWindow.start.Visibility = Visibility.Visible;
             dp.Stop();
-        }
-    }
-
-    void Pausieren()
-    {
-        pausiert = !pausiert;
-        if (pausiert)
-        {
-            dp.Stop();
-            mainWindow.pausiertText.Visibility = Visibility.Visible;
-        } else
-        {
-            dp.Start();
-            mainWindow.pausiertText.Visibility = Visibility.Hidden;
         }
     }
 
@@ -224,28 +267,6 @@ public partial class TetrisGame : INotifyPropertyChanged
             aktBlock.cubes[i].CubePosX = xi;
             aktBlock.cubes[i].CubePosY = yi;
         }
-    }
-
-    void HoldBlock()
-    {
-        if (holdBlock == null)
-        {
-            holdBlock = aktBlock;
-            aktBlock = spawnManager.SpawnNewBlock();
-        } else
-        {
-            var block = holdBlock;
-            holdBlock = aktBlock;
-            aktBlock = block;
-            aktBlock.SetPosition();
-        }
-        holdBlock.SetPosition();
-        foreach (var c in holdBlock.cubes)
-        {
-            c.CubePosX -= 9;
-            c.CubePosY -= 2;
-        }
-        canHold = false;
     }
 
     public event PropertyChangedEventHandler PropertyChanged;
