@@ -165,13 +165,13 @@ public partial class TetrisGame : INotifyPropertyChanged
         spielfeld.PlaceBlock(aktBlock);
         Score += spielfeld.RowsComplete * 10;
         canHold = true;
-        if (gameActive)
+        if (!spielfeld.IsGameOver)
         {
             aktBlock = spawnManager.SpawnNewBlock();
         }
         else
         {
-            spielfeld.IsGameOver = true;
+            gameActive = false;
             mainWindow.gameOverText.Visibility = Visibility.Visible;
             Canvas.SetTop(mainWindow.start, 220);
             mainWindow.start.Visibility = Visibility.Visible;
