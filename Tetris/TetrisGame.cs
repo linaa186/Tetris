@@ -22,7 +22,7 @@ public partial class TetrisGame : INotifyPropertyChanged
     MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
     Spielfeld spielfeld;
     SpawnManager spawnManager;
-    BlockController blockController = new BlockController();
+    BlockController blockController;
     public DispatcherTimer dp = new DispatcherTimer();
     public GridBackground GridBackground { get; set; }
     Block aktBlock;
@@ -59,6 +59,7 @@ public partial class TetrisGame : INotifyPropertyChanged
         Score = 0;
         spielfeld = new Spielfeld();
         spawnManager = new SpawnManager();
+        blockController = new BlockController();
         gameActive = true;
         mainWindow.blocks.Children.Clear();
         spawnManager.NextBlock();
@@ -149,7 +150,7 @@ public partial class TetrisGame : INotifyPropertyChanged
     [RelayCommand]
     public void HoldBlock()
     {
-        if(gameActive && !pausiert && canHold)
+        if (gameActive && !pausiert && canHold)
         {
             aktBlock = blockController.Hold(aktBlock);
             if (aktBlock == null)
