@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tetris"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="450" MinWidth="800" Height="500" Width="850">
+        Title="MainWindow" MinHeight="700" MinWidth="1200" WindowState="Maximized">
     <Window.Background>
         <ImageBrush ImageSource="pack://application:,,,/Assets/blue-gradient-background.jpg"/>
     </Window.Background>
@@ -22,15 +22,16 @@
     
     <Window.Resources>
         <Style x:Key="txtStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="Panel.ZIndex" Value="1"/>
         </Style>
         <Style x:Key="btnStyle" TargetType="Button">
             <Setter Property="Width" Value="60"/>
-            <Setter Property="Height" Value="20"/>
+            <Setter Property="Height" Value="25"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="15"/>
             <Setter Property="Background" Value="LightSteelBlue"/>
             <Setter Property="Focusable" Value="False"/>
             <Setter Property="Panel.ZIndex" Value="1"/>
@@ -44,15 +45,15 @@
         </Canvas>
 
         <Button x:Name="start" Command="{Binding StartCommand}" Style="{StaticResource btnStyle}" Canvas.Left="70" Canvas.Top="190">Start</Button>
-        <Button x:Name="exit" Command="{Binding ExitGameCommand}" Style="{StaticResource btnStyle}" Canvas.Right="250" Canvas.Top="350">Exit</Button>
+        <Button x:Name="exit" Command="{Binding ExitGameCommand}" Style="{StaticResource btnStyle}" Canvas.Left="-200" Canvas.Top="350">Exit</Button>
             
-        <TextBlock x:Name="scoreText" Style="{StaticResource txtStyle}" Text="{Binding Score, StringFormat=Score: {0}}" Width="60" Canvas.Left="-230" Canvas.Top="20" TextAlignment="Left"/>
+        <TextBlock x:Name="scoreText" Style="{StaticResource txtStyle}" Text="{Binding Score, StringFormat=SCORE: {0}}" FontSize="35" MinWidth="200" Canvas.Left="0" Canvas.Top="-60"/>
         <TextBlock x:Name="gameOverText" Style="{StaticResource txtStyle}" Foreground="Red" Background="Black" Width="200" Canvas.Top="160" FontSize="35" Visibility="Hidden">Game Over</TextBlock>
         <TextBlock x:Name="pausiertText" Style="{StaticResource txtStyle}" Foreground="White" Background="Black" Width="200" Canvas.Top="160" FontSize="35" Visibility="Hidden">Pausiert</TextBlock>
-        <TextBlock Style="{StaticResource txtStyle}" Width="60" Canvas.Left="250" Canvas.Top="20">Next Block</TextBlock>
-        <TextBlock Style="{StaticResource txtStyle}" Width="60" Canvas.Left="-110" Canvas.Top="20">Hold</TextBlock>
+        <TextBlock Style="{StaticResource txtStyle}" Width="120" Canvas.Left="330" Canvas.Top="20">Next Block</TextBlock>
+        <TextBlock Style="{StaticResource txtStyle}" Width="60" Canvas.Left="-210" Canvas.Top="20">Hold</TextBlock>
         <TextBlock Style="{StaticResource txtStyle}" Canvas.Left="300" Canvas.Top="200">Steuerung:</TextBlock>
-        <TextBlock Style="{StaticResource txtStyle}" Canvas.Left="300" Canvas.Top="220" TextAlignment="Left" FontWeight="Medium">
+        <TextBlock Style="{StaticResource txtStyle}" Canvas.Left="300" Canvas.Top="240" TextAlignment="Left" FontWeight="Medium">
             Bewegen: Pfeiltaste links/rechts <LineBreak/>
             Drehen: Pfeiltaste oben <LineBreak/>
             Schneller Fallen: Pfeiltaste unten <LineBreak/>

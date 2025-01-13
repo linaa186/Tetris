@@ -34,8 +34,8 @@ public class BlockController
         holdBlock.SetStartPosition();
         foreach (var c in holdBlock.cubes)
         {
-            c.CubePosX -= 9;
-            c.CubePosY -= 2;
+            c.CubePosX -= 14;
+            c.CubePosY -= 3;
         }
         return aktBlock;
     }

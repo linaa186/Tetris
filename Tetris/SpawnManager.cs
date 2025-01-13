@@ -10,7 +10,6 @@ namespace Tetris;
 
 public class SpawnManager
 {
-    MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
     public Block[] blocks = new Block[7];
     private Block nextBlock;
 
@@ -45,8 +44,8 @@ public class SpawnManager
         foreach(var c in nextBlock.cubes)
         {
             c.CreateCube();
-            c.CubePosX += 9;
-            c.CubePosY -= 2;
+            c.CubePosX += 14;
+            c.CubePosY -= 3;
         }
     }
 }
