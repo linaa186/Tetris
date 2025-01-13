@@ -29,6 +29,7 @@ public partial class TetrisGame : INotifyPropertyChanged
     bool canHold = true;
     bool pausiert = false;
     bool gameActive = false;
+    double falltime;
     private int score;
     public int Score
     {
@@ -47,7 +48,8 @@ public partial class TetrisGame : INotifyPropertyChanged
     {
         GridBackground = new GridBackground();
         mainWindow.Loaded += (s, e) => GridBackground.DrawGrid();
-        dp.Interval = new TimeSpan(0, 0, 0, 0, 500);
+        //dp.Interval = new TimeSpan(0, 0, 0, 0, 500);
+        dp.Interval = TimeSpan.FromMilliseconds(500);
         dp.Tick += Dp_Tick;
     }
 
@@ -61,6 +63,7 @@ public partial class TetrisGame : INotifyPropertyChanged
         spawnManager = new SpawnManager();
         blockController = new BlockController();
         gameActive = true;
+        falltime = 500;
         mainWindow.blocks.Children.Clear();
         spawnManager.NextBlock();
         aktBlock = spawnManager.SpawnNewBlock();
@@ -165,6 +168,8 @@ public partial class TetrisGame : INotifyPropertyChanged
     {
         spielfeld.PlaceBlock(aktBlock);
         Score += spielfeld.RowsComplete * 10;
+        falltime--;
+        dp.Interval = TimeSpan.FromMilliseconds(falltime);
         canHold = true;
         if (!spielfeld.IsGameOver)
         {
