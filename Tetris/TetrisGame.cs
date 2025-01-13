@@ -168,9 +168,14 @@ public partial class TetrisGame : INotifyPropertyChanged
     {
         spielfeld.PlaceBlock(aktBlock);
         Score += spielfeld.RowsComplete * 10;
-        falltime--;
-        dp.Interval = TimeSpan.FromMilliseconds(falltime);
         canHold = true;
+
+        if(falltime > 100)
+        {
+            falltime--;
+            dp.Interval = TimeSpan.FromMilliseconds(falltime);
+        }
+
         if (!spielfeld.IsGameOver)
         {
             aktBlock = spawnManager.SpawnNewBlock();
