@@ -13,7 +13,6 @@ namespace Tetris;
 
 public class Block
 {
-    MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
     public string Type { get; set; }
     public Cube[] cubes = new Cube[4];
 

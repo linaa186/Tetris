@@ -23,6 +23,7 @@ public partial class TetrisGame : INotifyPropertyChanged
     Spielfeld spielfeld;
     SpawnManager spawnManager;
     BlockController blockController;
+    Preview preview = new Preview();
     public DispatcherTimer dp = new DispatcherTimer();
     public GridBackground GridBackground { get; set; }
     Block aktBlock;
@@ -48,7 +49,6 @@ public partial class TetrisGame : INotifyPropertyChanged
     {
         GridBackground = new GridBackground();
         mainWindow.Loaded += (s, e) => GridBackground.DrawGrid();
-        //dp.Interval = new TimeSpan(0, 0, 0, 0, 500);
         dp.Interval = TimeSpan.FromMilliseconds(500);
         dp.Tick += Dp_Tick;
     }
@@ -67,6 +67,7 @@ public partial class TetrisGame : INotifyPropertyChanged
         mainWindow.blocks.Children.Clear();
         spawnManager.NextBlock();
         aktBlock = spawnManager.SpawnNewBlock();
+        preview.UpdatePreview(aktBlock, spielfeld);
         dp.Start();
     }
 
@@ -107,6 +108,7 @@ public partial class TetrisGame : INotifyPropertyChanged
         if(gameActive && !pausiert && spielfeld.IsFree(aktBlock, "left"))
         {
             aktBlock.MoveHorizontal(-1);
+            preview.UpdatePreview(aktBlock, spielfeld);
         }
     }
 
@@ -116,6 +118,7 @@ public partial class TetrisGame : INotifyPropertyChanged
         if (gameActive && !pausiert && spielfeld.IsFree(aktBlock, "right"))
         {
             aktBlock.MoveHorizontal(1);
+            preview.UpdatePreview(aktBlock, spielfeld);
         }
     }
 
@@ -125,6 +128,7 @@ public partial class TetrisGame : INotifyPropertyChanged
         if (gameActive && !pausiert && aktBlock.Type != "2x2")
         {
             aktBlock = blockController.ValidRotation(aktBlock, spielfeld);
+            preview.UpdatePreview(aktBlock, spielfeld);
         }
     }
 
@@ -159,7 +163,9 @@ public partial class TetrisGame : INotifyPropertyChanged
             if (aktBlock == null)
             {
                 aktBlock = spawnManager.SpawnNewBlock();
+                preview.UpdatePreview(aktBlock, spielfeld);
             }
+            preview.UpdatePreview(aktBlock, spielfeld);
             canHold = false;
         }
     }
@@ -167,6 +173,7 @@ public partial class TetrisGame : INotifyPropertyChanged
     void BlockPlatzieren()
     {
         spielfeld.PlaceBlock(aktBlock);
+        preview.ClearPreview();
         Score += spielfeld.RowsComplete * 10;
         canHold = true;
 
@@ -179,6 +186,7 @@ public partial class TetrisGame : INotifyPropertyChanged
         if (!spielfeld.IsGameOver)
         {
             aktBlock = spawnManager.SpawnNewBlock();
+            preview.UpdatePreview(aktBlock, spielfeld);
         }
         else
         {

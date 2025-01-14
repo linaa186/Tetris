@@ -40,8 +40,10 @@
     </Window.Resources>
     
     <Canvas x:Name="feld" Width="200" Height="400" Background="Black">
+        <Canvas x:Name="preview" Width="200" Height="400">
+        </Canvas>
+        
         <Canvas x:Name="blocks" Width="200" Height="400">
-
         </Canvas>
 
         <Button x:Name="start" Command="{Binding StartCommand}" Style="{StaticResource btnStyle}" Canvas.Left="70" Canvas.Top="190">Start</Button>
