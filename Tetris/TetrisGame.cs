@@ -179,7 +179,7 @@ public partial class TetrisGame : INotifyPropertyChanged
 
         if(falltime > 100)
         {
-            falltime--;
+            falltime -= 2;
             dp.Interval = TimeSpan.FromMilliseconds(falltime);
         }
 
