@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Media3D;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.ComponentModel;
-using static System.Formats.Asn1.AsnWriter;
 using System.Windows.Data;
+using System.Windows.Media;
 
 namespace Tetris;
 

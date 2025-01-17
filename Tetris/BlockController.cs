@@ -1,17 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.Intrinsics.Arm;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Formats.Asn1.AsnWriter;
-using System.Windows.Controls;
-using System.Windows.Media.Animation;
-using System.Windows;
-
-namespace Tetris;
+﻿namespace Tetris;
 
 public class BlockController
 {
